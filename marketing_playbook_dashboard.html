@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAB.bio B2B Marketing & Communications Playbook</title>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e3a8a; /* DAB.bio dark blue */
+            --secondary: #0ea5e9; /* DAB.bio light blue */
+            --accent: #10b981; /* Teal accent */
+            --bg-dark: #0f172a;
+            --bg-light: #f8fafc;
+            --text-dark: #334155;
+            --text-light: #f1f5f9;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Navigation Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--primary);
+            color: white;
+            padding: 2rem 0;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .logo-area {
+            padding: 0 2rem 2rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .logo-area h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: white;
+        }
+
+        .logo-area p {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            margin-top: 0.5rem;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 1rem 2rem;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+            cursor: pointer;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(255,255,255,0.05);
+            color: white;
+            border-left-color: var(--secondary);
+        }
+
+        .nav-item i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            margin-left: 280px;
+            padding: 3rem;
+            max-width: 1400px;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header UI */
+        .page-header {
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            color: #64748b;
+            font-size: 1.1rem;
+        }
+
+        /* Dashboard Cards */
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--secondary);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 0.5rem 0;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* Content Cards */
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+
+        /* Tabs UI */
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0px;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: none;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #64748b;
+            cursor: pointer;
+            position: relative;
+            bottom: -2px;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 2rem;
+            border-radius: 0 12px 12px 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* Lists and Checkboxes */
+        ul.custom-list {
+            list-style: none;
+        }
+
+        ul.custom-list li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        ul.custom-list li::before {
+            content: '→';
+            color: var(--secondary);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .interactive-checklist {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .check-item:hover {
+            background: #e2e8f0;
+        }
+
+        .check-item input[type="checkbox"] {
+            margin-top: 5px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .check-item label {
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .check-item.completed label {
+            text-decoration: line-through;
+            color: #94a3b8;
+        }
+
+        /* Timeline / Gantt */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: #e2e8f0;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: -2.35rem;
+            top: 0;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background: var(--secondary);
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px var(--secondary);
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--secondary);
+        }
+
+        /* Accordions */
+        .accordion {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background: #f8fafc;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-header:hover {
+            background: #f1f5f9;
+        }
+
+        .accordion-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+            background: white;
+        }
+
+        .accordion.open .accordion-content {
+            padding: 1.5rem;
+            max-height: 1000px;
+        }
+
+        .accordion.open .accordion-header i {
+            transform: rotate(180deg);
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .badge-green { background: #dcfce7; color: #166534; }
+        .badge-amber { background: #fef3c7; color: #92400e; }
+        .badge-red { background: #fee2e2; color: #991b1b; }
+        .badge-blue { background: #e0f2fe; color: #1e40af; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="logo-area">
+            <h2>DAB.bio</h2>
+            <p>B2B Marketing & Comms Plan</p>
+            <p style="color: rgba(255,255,255,0.4); font-size: 0.7rem; margin-top: 5px;">Irendra Wijewardana | 2026-2027</p>
+        </div>
+
+        <a class="nav-item active" onclick="showSection('executive')">
+            <i class="fas fa-chart-line"></i> Executive Summary
+        </a>
+        <a class="nav-item" onclick="showSection('context')">
+            <i class="fas fa-globe-europe"></i> Market Context
+        </a>
+        <a class="nav-item" onclick="showSection('audience')">
+            <i class="fas fa-users-target"></i> Target Audience
+        </a>
+        <a class="nav-item" onclick="showSection('positioning')">
+            <i class="fas fa-bullseye"></i> Core Positioning
+        </a>
+        <a class="nav-item" onclick="showSection('channels')">
+            <i class="fas fa-network-wired"></i> Channel Strategy
+        </a>
+        <a class="nav-item" onclick="showSection('content')">
+            <i class="fas fa-layer-group"></i> Content Framework
+        </a>
+        <a class="nav-item" onclick="showSection('calendar')">
+            <i class="fas fa-calendar-alt"></i> Execution Calendar
+        </a>
+        <a class="nav-item" onclick="showSection('budget')">
+            <i class="fas fa-euro-sign"></i> Budget & Resources
+        </a>
+        <a class="nav-item" onclick="showSection('quickstart')">
+            <i class="fas fa-rocket"></i> 90-Day Quick Start
+        </a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- SECTION 1: Executive Summary -->
+        <section id="executive" class="section active">
+            <div class="page-header">
+                <h1>Executive Summary & Targets</h1>
+                <p>Strategic roadmap for achieving commercial licences and ecosystem thought leadership.</p>
+            </div>
+
+            <div class="grid-4">
+                <div class="stat-card">
+                    <div class="stat-label">Budget</div>
+                    <div class="stat-value">€3,000</div>
+                    <p style="font-size: 0.85rem; color: #64748b;">Highly efficient spend</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Timeline</div>
+                    <div class="stat-value">12 Mo.</div>
+                    <p style="font-size: 0.85rem; color: #64748b;">April 2026 - April 2027</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Core Strategy</div>
+                    <div class="stat-value" style="font-size: 1.5rem; margin: 1.1rem 0;">Proof-First</div>
+                    <p style="font-size: 0.85rem; color: #64748b;">Education-driven content</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Execution</div>
+                    <div class="stat-value" style="font-size: 1.5rem; margin: 1.1rem 0;">Solo Ops</div>
+                    <p style="font-size: 0.85rem; color: #64748b;">Led by BD Manager</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-bullseye"></i> 12-Month Success Metrics (KPIs)</h3>
+                <div class="grid-2">
+                    <div>
+                        <h4 style="color: var(--secondary); margin-bottom: 10px;">Commercial Conversion</h4>
+                        <ul class="custom-list">
+                            <li><strong>15-20</strong> qualified pilot inquiries from target segments</li>
+                            <li><strong>3-5</strong> development agreements or MOUs signed</li>
+                            <li><strong>2-3</strong> pilot conversions to commercial licence discussions</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--secondary); margin-bottom: 10px;">Brand & Reach</h4>
+                        <ul class="custom-list">
+                            <li><strong>50% increase</strong> in LinkedIn followers (4,524 to ~6,800)</li>
+                            <li><strong>3x engagement</strong> rate on organic content</li>
+                            <li><strong>5+</strong> speaking engagements at tier-1 industry events</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white;">
+                <h3 style="color: white; border-bottom-color: rgba(255,255,255,0.2);"><i class="fas fa-star"></i> Core Dual Objective</h3>
+                <p style="font-size: 1.1rem; line-height: 1.8;">
+                    <strong>1. Commercial:</strong> Convert pilot partners into commercial licences and build a qualified B2B pipeline.<br><br>
+                    <strong>2. Brand:</strong> Establish DAB.bio as the "go-to" thought leader for continuous fermentation economics within the industrial biotechnology ecosystem.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 2: Market Context -->
+        <section id="context" class="section">
+            <div class="page-header">
+                <h1>Situation & Market Context</h1>
+                <p>The €60 billion playing field and where DAB.bio fits in.</p>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3><i class="fas fa-chart-pie"></i> Total Addressable Market</h3>
+                    <div id="tamChart" style="height: 300px;"></div>
+                    <p style="margin-top: 15px; font-size: 0.9rem;"><strong>Serviceable market:</strong> Processes with product inhibition challenges (~30% of applications)</p>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-brain"></i> Buyer Behaviour Insights</h3>
+                    <ul class="custom-list">
+                        <li><strong>Complex Purchasing:</strong> 74% of B2B teams show conflict during decisions (Gartner)</li>
+                        <li><strong>Long Sales Cycles:</strong> 12-24 months from first contact to pilot agreement</li>
+                        <li><strong>Risk-Averse Culture:</strong> Requires extensive proof at relevant industrial scale</li>
+                        <li><strong>Multiple Stakeholders:</strong> R&D (fit), Operations (integration), Finance (ROI), Procurement</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-swatchbook"></i> Current Marketing Asset Audit</h3>
+                <div class="grid-2">
+                    <div style="background: #f0fdf4; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--success);">
+                        <h4 style="color: #166534; margin-bottom: 10px;">Strengths to Leverage</h4>
+                        <ul class="custom-list" style="font-size: 0.9rem;">
+                            <li>Strong technical foundation & peer-reviewed papers</li>
+                            <li>Active LinkedIn presence (4,524 followers)</li>
+                            <li>Credible third-party validation (BBEPP, Investors)</li>
+                            <li>Proven at pilot scale (500L, 44+ runs)</li>
+                        </ul>
+                    </div>
+                    <div style="background: #fef2f2; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--danger);">
+                        <h4 style="color: #991b1b; margin-bottom: 10px;">Gaps to Address</h4>
+                        <ul class="custom-list" style="font-size: 0.9rem;">
+                            <li>Inconsistent content cadence</li>
+                            <li>Limited conversion paths on website</li>
+                            <li>Under-utilised proof points and pilot data</li>
+                            <li>No systematic ABM approach for high-value targets</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: Target Audience -->
+        <section id="audience" class="section">
+            <div class="page-header">
+                <h1>Target Audience Segmentation</h1>
+                <p>Prioritised B2B targets and how we solve their specific pain points.</p>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab(event, 'tier1')">Tier 1: Large Chem</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tier2')">Tier 2: Mid-Size</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tier3')">Tier 3: CDMOs</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tier4')">Tier 4: SynBio</button>
+                <button class="tab-btn" onclick="switchTab(event, 'ecosystem')">Ecosystem</button>
+            </div>
+
+            <div id="tier1" class="tab-content active">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
+                    <h3 style="color: var(--primary); font-size: 1.5rem; margin: 0;">Tier 1: Large Chemical Manufacturers <span class="badge badge-red" style="margin-left: 10px; vertical-align: middle;">Highest Priority</span></h3>
+                </div>
+
+                <div class="grid-2">
+                    <div>
+                        <h4 style="color: #64748b; margin-bottom: 10px;">Profile & Targets</h4>
+                        <p><strong>Revenue:</strong> €1B+ annually, 10+ facilities<br>
+                        <strong>Targets:</strong> BASF, DSM-Firmenich, Evonik, Clariant, Cargill<br>
+                        <strong>Personas:</strong> VP Process Dev, Head of Biotech R&D, Plant Ops<br>
+                        <strong>Focus:</strong> Germany, NL, Denmark, USA</p>
+
+                        <h4 style="color: #64748b; margin: 15px 0 10px 0;">The Pain Points</h4>
+                        <ul class="custom-list">
+                            <li>Legacy batch processes hitting productivity ceilings</li>
+                            <li>Inability to commercialise inhibiting products</li>
+                            <li>Pressure to meet sustainability targets without huge CAPEX</li>
+                        </ul>
+                    </div>
+                    <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                        <h4 style="color: var(--primary); margin-bottom: 10px;">Our Value Proposition</h4>
+                        <ul class="custom-list">
+                            <li><strong>Retrofit capability:</strong> Upgrade existing fermenters vs new builds (faster ROI, lower risk)</li>
+                            <li><strong>Cost reduction:</strong> 20-50% COGS reduction through higher yield</li>
+                            <li><strong>Portfolio enablement:</strong> Unlock uncommercial molecules</li>
+                        </ul>
+
+                        <h4 style="color: var(--primary); margin: 15px 0 10px 0;">Engagement Strategy</h4>
+                        <p style="font-size: 0.9rem;">Direct ABM outreach, custom ROI models showing retrofit economics, invitations to BBEPP for live demonstration.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tier2" class="tab-content">
+                <h3 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 1.5rem;">Tier 2: Medium-Sized Specialty Manufacturers <span class="badge badge-amber" style="margin-left: 10px;">High Priority</span></h3>
+                <div class="grid-2">
+                    <div>
+                        <p><strong>Profile:</strong> Regional bio-based chemical producers, flavour/fragrance specialists (Symrise tier), €100M-€1B revenue.<br>
+                        <strong>Pain Points:</strong> Need differentiation vs large competitors, limited R&D budget for process innovation.</p>
+                    </div>
+                    <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                        <h4 style="color: var(--primary); margin-bottom: 10px;">Our Value Proposition</h4>
+                        <ul class="custom-list">
+                            <li>First-mover advantage in their niche with cost-competitive processes</li>
+                            <li>Access to FASTMINI for lab-scale validation (lower barrier)</li>
+                            <li>Pathway to commercial scale with staged approach</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tier3" class="tab-content">
+                <h3 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 1.5rem;">Tier 3: CDMOs / CMOs <span class="badge badge-amber" style="margin-left: 10px;">Strategic Enablers</span></h3>
+                <div class="grid-2">
+                    <div>
+                        <p><strong>Profile:</strong> Bio Base Europe Pilot Plant, Rentschler, Novasep.<br>
+                        <strong>Pain Points:</strong> Need to offer differentiated capabilities, clients demand cost-effective scale-up pathways.</p>
+                    </div>
+                    <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                        <h4 style="color: var(--primary); margin-bottom: 10px;">Our Value Proposition</h4>
+                        <ul class="custom-list">
+                            <li>Expand service portfolio with continuous fermentation capability</li>
+                            <li>Attract clients with challenging (inhibiting) products</li>
+                            <li>Share revenue model (premium charging)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tier4" class="tab-content">
+                <h3 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 1.5rem;">Tier 4: SynBio Startups <span class="badge badge-blue" style="margin-left: 10px;">Long-term Pipeline</span></h3>
+                <div class="grid-2">
+                    <div>
+                        <p><strong>Profile:</strong> Precision fermentation (Ginkgo network, Perfect Day tier), Series A-C.<br>
+                        <strong>Pain Points:</strong> Struggling to achieve cost-competitive production at scale, investors demanding profitability.</p>
+                    </div>
+                    <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                        <h4 style="color: var(--primary); margin-bottom: 10px;">Our Value Proposition</h4>
+                        <ul class="custom-list">
+                            <li>Overcome strain limitations through process innovation</li>
+                            <li>Demonstrate commercial viability to investors</li>
+                        </ul>
+                        <p style="font-size: 0.85rem; margin-top: 10px; font-style: italic;">Note: Engage primarily through Ginkgo network referrals due to startup budget constraints.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="ecosystem" class="tab-content">
+                <h3 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 1.5rem;">Community & Ecosystem Stakeholders</h3>
+                <div class="grid-3">
+                    <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                        <h4 style="color: var(--primary);">Technical Community</h4>
+                        <p style="font-size: 0.9rem;">TU Delft, MIT, DTU researchers. Engage via ResearchGate, peer-reviewed journals, and offering FASTMINI for academic research.</p>
+                    </div>
+                    <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                        <h4 style="color: var(--primary);">Investors & VCs</h4>
+                        <p style="font-size: 0.9rem;">Industrial biotech VCs. Engage via portfolio updates, co-marketing, and market intelligence sharing.</p>
+                    </div>
+                    <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                        <h4 style="color: var(--primary);">Industry & Policy</h4>
+                        <p style="font-size: 0.9rem;">EU DG GROW, Renewable Carbon Initiative. Engage via working groups, awards, and white paper contributions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: Core Positioning -->
+        <section id="positioning" class="section">
+            <div class="page-header">
+                <h1>Strategic Positioning & Messaging</h1>
+                <p>How we communicate our value and the pre-approved language to use.</p>
+            </div>
+
+            <div class="card" style="background: #f8fafc; border-left: 6px solid var(--primary);">
+                <h3 style="border-bottom: none; margin-bottom: 0.5rem; color: #64748b; font-size: 1rem; text-transform: uppercase;">The Core Positioning Statement</h3>
+                <p style="font-size: 1.25rem; font-weight: 500; color: var(--primary); line-height: 1.6;">
+                    "For bio-based manufacturers struggling with product inhibition that limits yield and profitability, DAB.bio's FAST platform is a proven continuous fermentation technology that delivers 20-50% cost reduction and up to 10x output increases by enabling in-situ product removal at industrial scale, unlike membrane-based or batch alternatives that compromise on scalability, reliability, or economics."
+                </p>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3><i class="fas fa-columns"></i> The 4 Message Pillars</h3>
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            Pillar 1: Proven Industrial Performance <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Headline:</strong> "FAST Works at Scale: 500L Pilot, 44+ Runs, Peer-Reviewed Results"</p>
+                            <ul class="custom-list" style="font-size: 0.9rem; margin-top: 10px;">
+                                <li>Operational at BBEPP since 2023</li>
+                                <li>2x output increase in published 2PE study</li>
+                                <li>Zero contamination across 44 runs</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            Pillar 2: Economic Transformation <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Headline:</strong> "Break the Cost Barrier: 20-50% COGS Reduction"</p>
+                            <ul class="custom-list" style="font-size: 0.9rem; margin-top: 10px;">
+                                <li>Retrofit economics: upgrade vs new plant (€10M+)</li>
+                                <li>Smaller footprint, lower energy costs</li>
+                                <li>Faster time-to-market (12-18mo vs 3-5yr)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            Pillar 3: Gravity-Based Simplicity <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Headline:</strong> "No Membranes, No External Loops, No Complexity"</p>
+                            <ul class="custom-list" style="font-size: 0.9rem; margin-top: 10px;">
+                                <li>Eliminates clogging, fouling, mechanical failure</li>
+                                <li>Integrated design (fermentation + extraction)</li>
+                                <li>Lower OPEX: no membrane replacement</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            Pillar 4: Broad Applicability <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Headline:</strong> "Platform Technology: Chemicals, Flavours, Fuels, Proteins"</p>
+                            <ul class="custom-list" style="font-size: 0.9rem; margin-top: 10px;">
+                                <li>Proven: butanol, 2PE, terpenes</li>
+                                <li>Scalable: lab (2L) to pilot (500L) to commercial (10k+ L)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-check-circle"></i> Pre-Approved Language Library</h3>
+                    <p style="font-size: 0.9rem; margin-bottom: 15px; color: #64748b;">Use these exact phrases for public marketing to ensure scientific accuracy and legal compliance.</p>
+
+                    <h4 style="font-size: 0.95rem; margin-bottom: 8px;">Quantitative Claims (Green Light)</h4>
+                    <ul class="custom-list" style="font-size: 0.85rem; margin-bottom: 15px;">
+                        <li>"Up to 10x higher output for severely inhibiting products"</li>
+                        <li>"20-50% cost reduction in biomanufacturing"</li>
+                        <li>"2x product output vs batch ISPR" (must reference 2PE study)</li>
+                        <li>"500L pilot scale with 44+ successful runs"</li>
+                    </ul>
+
+                    <h4 style="font-size: 0.95rem; margin-bottom: 8px;">Validation Claims (Green Light)</h4>
+                    <ul class="custom-list" style="font-size: 0.85rem; margin-bottom: 15px;">
+                        <li>"Operational at Bio Base Europe Pilot Plant"</li>
+                        <li>"Published in Biotechnology & Bioengineering"</li>
+                        <li>"Member of Ginkgo Technology Network"</li>
+                    </ul>
+
+                    <div style="background: #fef2f2; padding: 10px; border-radius: 6px; border-left: 3px solid var(--danger); font-size: 0.85rem;">
+                        <strong><i class="fas fa-exclamation-triangle" style="color: var(--danger);"></i> RED Light (Never Publish):</strong><br>
+                        Customer identities under NDA, proprietary process details, unpublished internal data.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: Channel Strategy -->
+        <section id="channels" class="section">
+            <div class="page-header">
+                <h1>Channel Strategy</h1>
+                <p>Where we play and how we allocate effort vs budget.</p>
+            </div>
+
+            <div class="grid-3">
+                <div class="card" style="border-top: 4px solid var(--primary);">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="border: none; margin: 0;">Tier 1: Primary</h3>
+                        <span class="badge badge-blue">70% Effort</span>
+                    </div>
+                    <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 15px;">60% of Budget (€1,000)</p>
+
+                    <h4 style="margin-top: 15px;">1. LinkedIn</h4>
+                    <ul class="custom-list" style="font-size: 0.9rem;">
+                        <li>Goal: Grow to 6,800+ followers</li>
+                        <li>Cadence: 2-3 posts/week</li>
+                        <li>Tactics: Employee advocacy, technical carousels</li>
+                    </ul>
+
+                    <h4 style="margin-top: 15px;">2. dab.bio Website</h4>
+                    <ul class="custom-list" style="font-size: 0.9rem;">
+                        <li>Goal: 10% conversion on CTAs</li>
+                        <li>Tactics: Interactive ROI calculator, case study library</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="border-top: 4px solid var(--secondary);">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="border: none; margin: 0;">Tier 2: Secondary</h3>
+                        <span class="badge badge-amber">20% Effort</span>
+                    </div>
+                    <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 15px;">30% of Budget (€1,200)</p>
+
+                    <h4 style="margin-top: 15px;">1. Industry Events</h4>
+                    <ul class="custom-list" style="font-size: 0.9rem;">
+                        <li>Biofuels Int. (April '26)</li>
+                        <li>SynBioBeta (USA)</li>
+                        <li>ECB (Copenhagen, Aug '26)</li>
+                        <li>Strategy: Speaker slots > Booths</li>
+                    </ul>
+
+                    <h4 style="margin-top: 15px;">2. Trade PR</h4>
+                    <ul class="custom-list" style="font-size: 0.9rem;">
+                        <li>BioProcess Int., Biofuels Digest</li>
+                        <li>Strategy: 4 contributed unpaid articles/year</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="border-top: 4px solid #94a3b8;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="border: none; margin: 0;">Tier 3: Exploratory</h3>
+                        <span class="badge badge-green">10% Effort</span>
+                    </div>
+                    <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 15px;">10% of Budget (€200)</p>
+
+                    <h4 style="margin-top: 15px;">1. Tech Forums</h4>
+                    <ul class="custom-list" style="font-size: 0.9rem;">
+                        <li>ResearchGate publication sharing</li>
+                        <li>Bioprocess Reddit/Forums</li>
+                    </ul>
+
+                    <h4 style="margin-top: 15px;">2. Media</h4>
+                    <ul class="custom-list" style="font-size: 0.9rem;">
+                        <li>YouTube: DIY explainer videos</li>
+                        <li>Podcasts: Guest appearances</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-globe"></i> Geographic Rollout</h3>
+                <div style="display: flex; gap: 20px; align-items: stretch;">
+                    <div style="flex: 1; text-align: center; padding: 1rem; background: #f8fafc; border-radius: 8px;">
+                        <div style="font-weight: 700; color: var(--primary); margin-bottom: 5px;">Phase 1: EU Focus</div>
+                        <div style="font-size: 0.8rem; color: #64748b; margin-bottom: 10px;">Months 1-6</div>
+                        <p style="font-size: 0.9rem;">Germany, NL, Denmark, Belgium. Leverage BBEPP proximity and warm leads.</p>
+                    </div>
+                    <div style="display: flex; align-items: center; color: #cbd5e1;"><i class="fas fa-arrow-right"></i></div>
+                    <div style="flex: 1; text-align: center; padding: 1rem; background: #f8fafc; border-radius: 8px;">
+                        <div style="font-weight: 700; color: var(--primary); margin-bottom: 5px;">Phase 2: US Expansion</div>
+                        <div style="font-size: 0.8rem; color: #64748b; margin-bottom: 10px;">Months 7-12</div>
+                        <p style="font-size: 0.9rem;">USA market penetration leveraging Ginkgo partnership and existing dev agreements.</p>
+                    </div>
+                    <div style="display: flex; align-items: center; color: #cbd5e1;"><i class="fas fa-arrow-right"></i></div>
+                    <div style="flex: 1; text-align: center; padding: 1rem; background: #f8fafc; border-radius: 8px;">
+                        <div style="font-weight: 700; color: var(--primary); margin-bottom: 5px;">Phase 3: Asia</div>
+                        <div style="font-size: 0.8rem; color: #64748b; margin-bottom: 10px;">Year 2+</div>
+                        <p style="font-size: 0.9rem;">India and China exploration focused on large contract manufacturers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: Content Framework -->
+        <section id="content" class="section">
+            <div class="page-header">
+                <h1>Content Engine Framework</h1>
+                <p>The "Proof-First Education" machine driving inbound interest.</p>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-project-diagram"></i> The 6 Content Pillars</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="20%">Pillar</th>
+                            <th width="10%">Mix</th>
+                            <th width="30%">Target Audience</th>
+                            <th width="40%">Format & Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1. Tech Deep-Dives</strong></td>
+                            <td>30%</td>
+                            <td>Bioprocess engineers, R&D</td>
+                            <td><em>Format:</em> LinkedIn Carousels, Tech Notes<br><em>Ex:</em> "Gravity vs Membranes Comparison"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Economic Case</strong></td>
+                            <td>25%</td>
+                            <td>Plant Managers, Finance, Execs</td>
+                            <td><em>Format:</em> ROI Calculator, Infographics<br><em>Ex:</em> "Retrofit Economics: 18-Mo Payback"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Thought Leadership</strong></td>
+                            <td>20%</td>
+                            <td>Execs, Investors, Policy</td>
+                            <td><em>Format:</em> CEO Articles, PR<br><em>Ex:</em> "The Synbio Scale-up Crisis"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Social Proof</strong></td>
+                            <td>15%</td>
+                            <td>All Audiences</td>
+                            <td><em>Format:</em> Testimonial graphics, Pilot stats<br><em>Ex:</em> "BBEPP quote graphic"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5. Products & Apps</strong></td>
+                            <td>10%</td>
+                            <td>Specific Verticals</td>
+                            <td><em>Format:</em> Videos, Landing pages<br><em>Ex:</em> "FAST for Flavours (2PE)"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>6. Community</strong></td>
+                            <td>10%</td>
+                            <td>Academia, PhDs</td>
+                            <td><em>Format:</em> Open access papers, student spotlights</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3><i class="fas fa-sync-alt"></i> Weekly Rhythm (12-16h total)</h3>
+                    <div style="position: relative; padding-left: 20px; margin-top: 20px;">
+                        <div style="position: absolute; left: 0; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: var(--primary);"></div>
+                        <strong>Monday: Thought Leadership</strong>
+                        <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 15px;">Articles, industry trends, macro views.</p>
+
+                        <div style="position: absolute; left: 0; top: 65px; width: 10px; height: 10px; border-radius: 50%; background: var(--secondary);"></div>
+                        <strong>Wednesday: Tech/Economic Deep-Dive</strong>
+                        <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 15px;">Carousels, data, infographics, ROI.</p>
+
+                        <div style="position: absolute; left: 0; top: 125px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent);"></div>
+                        <strong>Friday: Proof & Culture</strong>
+                        <p style="font-size: 0.9rem; color: #64748b;">Testimonials, pilot milestones, team.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-bolt"></i> Solo Efficiency Tactics</h3>
+                    <ul class="custom-list">
+                        <li><strong>Batch Creation:</strong> Dedicate 1 day/month to create 8-12 posts.</li>
+                        <li><strong>Repurposing:</strong> Paper -> PR -> Thread -> Article -> Case Study.</li>
+                        <li><strong>Templates:</strong> 10 fixed Canva templates (quotes, data, product).</li>
+                        <li><strong>Outsource Smartly:</strong> Fiverr for complex design (€50) and video editing (€150).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 7: Execution Calendar -->
+        <section id="calendar" class="section">
+            <div class="page-header">
+                <h1>12-Month Execution Calendar</h1>
+                <p>Strategic quarter-by-quarter campaign rollout.</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker" style="background: var(--primary);"></div>
+                    <div class="timeline-content">
+                        <h3 style="color: var(--primary); margin-bottom: 10px;">Q2 2026: "The Retrofit Advantage" (Launch Phase)</h3>
+                        <p><strong>Goal:</strong> Establish cadence, target Tier 1 Plant/Finance roles.</p>
+                        <div style="margin-top: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.9rem;">
+                            <div>
+                                <strong>Key Deliverables:</strong>
+                                <ul style="padding-left: 20px; color: #64748b;">
+                                    <li>Launch Website ROI Calculator</li>
+                                    <li>FAST Tech Overview 1-pager</li>
+                                    <li>BBEPP proof sheet & 2PE case study</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <strong>Events:</strong>
+                                <ul style="padding-left: 20px; color: #64748b;">
+                                    <li>Biofuels Int. (April)</li>
+                                    <li>SynBioBeta USA (May)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker" style="background: var(--secondary);"></div>
+                    <div class="timeline-content">
+                        <h3 style="color: var(--secondary); margin-bottom: 10px;">Q3 2026: "The Proof Campaign"</h3>
+                        <p><strong>Goal:</strong> Showcase pilot results and de-risk commercial adoption.</p>
+                        <div style="margin-top: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.9rem;">
+                            <div>
+                                <strong>Key Deliverables:</strong>
+                                <ul style="padding-left: 20px; color: #64748b;">
+                                    <li>Case Study #2 (Terpenes)</li>
+                                    <li>Pilot to Commercial Whitepaper</li>
+                                    <li>Investor co-marketing update</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <strong>Events:</strong>
+                                <ul style="padding-left: 20px; color: #64748b;">
+                                    <li>ECB Copenhagen (August)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker" style="background: var(--accent);"></div>
+                    <div class="timeline-content">
+                        <h3 style="color: var(--accent); margin-bottom: 10px;">Q4 2026: "Thought Leadership Push"</h3>
+                        <p><strong>Goal:</strong> Establish DAB.bio as go-to voice for continuous fermentation.</p>
+                        <div style="margin-top: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.9rem;">
+                            <div>
+                                <strong>Key Deliverables:</strong>
+                                <ul style="padding-left: 20px; color: #64748b;">
+                                    <li>3 Guest Articles in Trade PR</li>
+                                    <li>2 LinkedIn Live Sessions</li>
+                                    <li>2026 Year in Review Report</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <strong>Events:</strong>
+                                <ul style="padding-left: 20px; color: #64748b;">
+                                    <li>SynBioBeta (Oct)</li>
+                                    <li>RAFT Brussels (Nov)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker" style="background: #94a3b8;"></div>
+                    <div class="timeline-content">
+                        <h3 style="color: #64748b; margin-bottom: 10px;">Q1 2027: "Technical Mastery & ABM Sprint"</h3>
+                        <p><strong>Goal:</strong> Deepen technical credibility and execute hyper-targeted ABM.</p>
+                        <div style="margin-top: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.9rem;">
+                            <div>
+                                <strong>Key Deliverables:</strong>
+                                <ul style="padding-left: 20px; color: #64748b;">
+                                    <li>4-Week Tech Deep-Dive Series</li>
+                                    <li>ABM Pilot for 20-30 Tier 1 accounts</li>
+                                    <li>Academic collaboration PR</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <strong>Events:</strong>
+                                <ul style="padding-left: 20px; color: #64748b;">
+                                    <li>BPI Europe Amsterdam (Feb)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 8: Budget & Resources -->
+        <section id="budget" class="section">
+            <div class="page-header">
+                <h1>Budget & Resource Allocation</h1>
+                <p>Maximising the €3,000 budget and structuring time effectively.</p>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3><i class="fas fa-chart-pie"></i> €3,000 Budget Breakdown</h3>
+                    <div id="budgetChart" style="height: 350px;"></div>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-list"></i> Line-Item Details</h3>
+                    <table style="font-size: 0.9rem;">
+                        <tbody>
+                            <tr>
+                                <td><strong>Conferences</strong><br><span style="color: #64748b; font-size: 0.8rem;">2 event registrations (travel separate)</span></td>
+                                <td style="text-align: right; font-weight: bold;">€1,200</td>
+                            </tr>
+                            <tr>
+                                <td><strong>LinkedIn Ads</strong><br><span style="color: #64748b; font-size: 0.8rem;">Promoting hero content to Tier 1 titles</span></td>
+                                <td style="text-align: right; font-weight: bold;">€600</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Content Outsourcing</strong><br><span style="color: #64748b; font-size: 0.8rem;">Fiverr graphics & video editing</span></td>
+                                <td style="text-align: right; font-weight: bold;">€450</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Website Dev</strong><br><span style="color: #64748b; font-size: 0.8rem;">ROI Calculator plugin/scripting</span></td>
+                                <td style="text-align: right; font-weight: bold;">€400</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tech Stack</strong><br><span style="color: #64748b; font-size: 0.8rem;">Canva Pro, Scheduling tools, ResearchGate</span></td>
+                                <td style="text-align: right; font-weight: bold;">€350</td>
+                            </tr>
+                            <tr style="border-top: 2px solid #e2e8f0; background: #f8fafc;">
+                                <td><strong>Total Marketing Spend</strong></td>
+                                <td style="text-align: right; font-weight: bold; color: var(--primary);">€3,000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-clock"></i> Weekly Time Allocation (Solo Execution)</h3>
+                <div style="background: #f1f5f9; height: 30px; border-radius: 15px; display: flex; overflow: hidden; margin: 20px 0;">
+                    <div style="width: 25%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: bold;">Content (10h)</div>
+                    <div style="width: 10%; background: var(--secondary); display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: bold;">Social (4h)</div>
+                    <div style="width: 5%; background: var(--accent); display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: bold;">Data (2h)</div>
+                    <div style="width: 60%; background: #94a3b8; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: bold;">Direct B2B Sales / BD / Meetings (24h)</div>
+                </div>
+                <p style="text-align: center; font-size: 0.9rem; color: #64748b;">Based on a standard 40-hour work week</p>
+            </div>
+        </section>
+
+        <!-- SECTION 9: 90-Day Quick Start -->
+        <section id="quickstart" class="section">
+            <div class="page-header">
+                <h1>90-Day Quick Start Implementation</h1>
+                <p>Interactive checklist to track immediate progress.</p>
+            </div>
+
+            <div class="grid-3">
+                <div class="interactive-checklist">
+                    <h3 style="color: var(--primary); margin-bottom: 1rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem;">Month 1: Foundation</h3>
+
+                    <div class="check-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>Setup Canva Pro and create 10 branded templates</label>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>Draft 3-month LinkedIn content calendar</label>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>Update LinkedIn profiles (Company + Personal)</label>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>Write and schedule first 8 posts</label>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>Begin specs for ROI calculator web tool</label>
+                    </div>
+                </div>
+
+                <div class="interactive-checklist">
+                    <h3 style="color: var(--primary); margin-bottom: 1rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem;">Month 2: First Campaign</h3>
+
+                    <div class="check-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>Launch "Retrofit Advantage" campaign</label>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>Publish ROI Calculator on website</label>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>Run €100 LinkedIn ad test to Tier 1 accounts</label>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>Build BBEPP pilot testimonial graphic</label>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>Identify targets for SynBioBeta outreach</label>
+                    </div>
+                </div>
+
+                <div class="interactive-checklist">
+                    <h3 style="color: var(--primary); margin-bottom: 1rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem;">Month 3: Review & Scale</h3>
+
+                    <div class="check-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>Publish 2PE Case Study as PDF</label>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>Host/Co-host first webinar event</label>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>Direct ABM outreach to 10 Tier 1 targets</label>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>Review Q2 metrics vs KPIs</label>
+                    </div>
+                    <div class="check-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <label>Draft abstracts for Q3/Q4 conferences</label>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <button onclick="resetChecklist()" style="background: none; border: 1px solid #e2e8f0; padding: 8px 16px; border-radius: 4px; cursor: pointer; color: #64748b; transition: all 0.2s;">
+                    <i class="fas fa-undo"></i> Reset Checklist
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Navigation Logic
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+
+            // Remove active from nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Show target section
+            document.getElementById(sectionId).classList.add('active');
+
+            // Add active to clicked nav (based on onclick attribute)
+            event.currentTarget.classList.add('active');
+
+            // Re-render charts if they are in the activated section
+            if(sectionId === 'context') {
+                setTimeout(renderTAMChart, 100);
+            }
+            if(sectionId === 'budget') {
+                setTimeout(renderBudgetChart, 100);
+            }
+
+            // Scroll to top
+            window.scrollTo(0,0);
+        }
+
+        // Tabs Logic
+        function switchTab(evt, tabId) {
+            // Get all tab content elements and hide them
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = "none";
+                tabContents[i].classList.remove("active");
+            }
+
+            // Get all tab buttons and remove active class
+            const tabBtns = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < tabBtns.length; i++) {
+                tabBtns[i].classList.remove("active");
+            }
+
+            // Show current tab and add active class to button
+            document.getElementById(tabId).style.display = "block";
+            setTimeout(() => {
+                document.getElementById(tabId).classList.add("active");
+            }, 10);
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Accordion Logic
+        function toggleAccordion(element) {
+            const accordion = element.parentElement;
+            accordion.classList.toggle('open');
+        }
+
+        // Checklist Logic
+        function toggleCheck(element) {
+            const checkbox = element.querySelector('input[type="checkbox"]');
+            // Only toggle if the click wasn't directly on the checkbox
+            if(event.target.type !== 'checkbox') {
+                checkbox.checked = !checkbox.checked;
+            }
+
+            if(checkbox.checked) {
+                element.classList.add('completed');
+            } else {
+                element.classList.remove('completed');
+            }
+
+            // Save state to local storage (optional enhancement)
+        }
+
+        function resetChecklist() {
+            document.querySelectorAll('.check-item').forEach(item => {
+                item.classList.remove('completed');
+                item.querySelector('input').checked = false;
+            });
+        }
+
+        // Initialize Charts
+        function renderTAMChart() {
+            const data = [{
+                values: [15, 12, 8, 5, 20],
+                labels: ['Specialty Chemicals', 'Biofuels', 'Flavours/Fragrances', 'Alt Proteins', 'Other/Traditional'],
+                type: 'pie',
+                hole: .4,
+                marker: {
+                    colors: ['#1e3a8a', '#0ea5e9', '#10b981', '#f59e0b', '#cbd5e1']
+                },
+                textinfo: 'label+percent'
+            }];
+
+            const layout = {
+                showlegend: false,
+                margin: { t: 10, b: 10, l: 10, r: 10 },
+                annotations: [{
+                    text: '€60B<br>Total',
+                    showarrow: false,
+                    font: { size: 20, color: '#1e3a8a', weight: 'bold' }
+                }]
+            };
+
+            Plotly.newPlot('tamChart', data, layout, {displayModeBar: false});
+        }
+
+        function renderBudgetChart() {
+            const data = [{
+                values: [1200, 600, 450, 400, 350],
+                labels: ['Conferences', 'LinkedIn Ads', 'Content Outsourcing', 'Website Dev', 'Tech Stack'],
+                type: 'pie',
+                hole: .5,
+                marker: {
+                    colors: ['#1e3a8a', '#0ea5e9', '#3b82f6', '#10b981', '#cbd5e1']
+                },
+                textinfo: 'percent'
+            }];
+
+            const layout = {
+                showlegend: true,
+                legend: { orientation: 'h', y: -0.1 },
+                margin: { t: 10, b: 40, l: 10, r: 10 },
+                annotations: [{
+                    text: '€3k<br>Budget',
+                    showarrow: false,
+                    font: { size: 20, color: '#1e3a8a', weight: 'bold' }
+                }]
+            };
+
+            Plotly.newPlot('budgetChart', data, layout, {displayModeBar: false});
+        }
+
+        // Init charts on load if first section has them (it doesn't, but good practice)
+        document.addEventListener('DOMContentLoaded', () => {
+            // Pre-process any active checkboxes
+            document.querySelectorAll('.check-item input:checked').forEach(cb => {
+                cb.parentElement.classList.add('completed');
+            });
+        });
+    </script>
+</body>
+</html>
